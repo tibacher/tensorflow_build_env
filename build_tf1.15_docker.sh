@@ -18,6 +18,7 @@ if [[ -d "$TF_DIR" ]]
 then
     echo "$TF_DIR already exists."
 else
+		mkdir $TF_DIR --parents
 		git clone https://github.com/tensorflow/tensorflow $TF_DIR
 fi
 
@@ -30,7 +31,17 @@ docker build -f ./dockerfiles/devel-gpu.Dockerfile --build-arg CHECKOUT_TF_SRC=0
 # open main dir again
 cd $WORKING_DIR
 
-docker run -m 14G -d -it --rm -w / -v $PWD/wheels:/mnt -e HOST_PERMS="$(id -u):$(id -g)" --name tf_build $DOCKER_TAG bash
+WHEELS_DIR=$WORKING_DIR/wheels
+
+if [[ -d "$WHEELS_DIR" ]]
+then
+    echo "$WHEELS_DIR already exists."
+else
+		mkdir $WHEELS_DIR --parents
+fi
+
+
+docker run -m 14G -d -it --rm -w / -v $WHEELS_DIR:/mnt -e HOST_PERMS="$(id -u):$(id -g)" --name tf_build $DOCKER_TAG bash
 
 DOCKER_WORKING_DIR=/
 DOCKER_EXEC="docker exec -it -w $DOCKER_WORKING_DIR tf_build bash -c "
