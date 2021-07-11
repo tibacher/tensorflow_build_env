@@ -3,7 +3,7 @@
 WORKING_DIR=$(eval pwd)
 
 TF_VERSION=1.15
-PYTHON_VERSION=python3.8
+#PYTHON_VERSION=python3.6
 JOBS=8
 local_ram_resources=8000
 
