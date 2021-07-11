@@ -47,9 +47,9 @@ DOCKER_WORKING_DIR=/
 DOCKER_EXEC="docker exec -it -w $DOCKER_WORKING_DIR tf_build bash -c "
 
 echo Cloneing TF Repo
-$DOCKER_EXEC "git clone https://github.com/NVIDIA/tensorflow $TF_DIR"
+$DOCKER_EXEC "git clone https://github.com/NVIDIA/tensorflow tensorflow_src"
 
-DOCKER_WORKING_DIR=/$TF_DIR
+DOCKER_WORKING_DIR=/tensorflow_src
 DOCKER_EXEC="docker exec -it -w $DOCKER_WORKING_DIR tf_build bash -c "
 
 echo pull repo

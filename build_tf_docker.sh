@@ -2,9 +2,9 @@
 
 WORKING_DIR=$(eval pwd)
 
-TF_VERSION=2.3
+TF_VERSION=2.5
 PYTHON_VERSION=python3.8
-JOBS=6
+JOBS=16
 local_ram_resources=8000
 
 DOCKER_TAG=tf-gpu:$TF_VERSION
@@ -41,7 +41,7 @@ else
 fi
 
 
-docker run -m 14G -d -it --rm -w / -v $WHEELS_DIR:/mnt -e HOST_PERMS="$(id -u):$(id -g)" --name tf_build $DOCKER_TAG bash
+docker run -m 14G -d -it --rm -w /tensorflow_src -v $WHEELS_DIR:/mnt -e HOST_PERMS="$(id -u):$(id -g)" --name tf_build $DOCKER_TAG bash
 
 DOCKER_EXEC="docker exec -it tf_build bash -c "
 
