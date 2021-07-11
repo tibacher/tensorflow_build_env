@@ -13,6 +13,8 @@ TF_CUDA_COMPUTE_CAPABILITIES="5.0"
 CC_OPT_FLAGS="-march=westmere -Wno-sign-compare"
 
 
+
+
 TF_DIR=tensorflow_src
 
 if [[ -d "$TF_DIR" ]]
@@ -31,7 +33,7 @@ docker build -f ./dockerfiles/devel-gpu.Dockerfile --build-arg CHECKOUT_TF_SRC=1
 # open main dir again
 cd $WORKING_DIR
 
-docker run -m 14G -d -it --rm -w / -v $PWD:/mnt -e HOST_PERMS="$(id -u):$(id -g)" --name tf_build $DOCKER_TAG bash
+docker run -m 14G -d -it --rm -w / -v $PWD/wheels:/mnt -e HOST_PERMS="$(id -u):$(id -g)" --name tf_build $DOCKER_TAG bash
 
 DOCKER_EXEC="docker exec -it tf_build bash -c "
 
